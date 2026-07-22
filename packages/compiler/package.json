@@ -1,0 +1,20 @@
+{
+  "name": "@velyx/compiler",
+  "version": "0.1.0",
+  "description": "Compiler engine for transforming .vx single-file components into optimized JS for Velyx",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["velyx", "compiler", "parser", "sfc"],
+  "author": "Florynx Labs",
+  "license": "MIT"
+}

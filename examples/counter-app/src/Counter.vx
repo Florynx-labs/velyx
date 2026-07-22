@@ -1,0 +1,134 @@
+<template>
+  <div class="velyx-card">
+    <div class="badge">Florynx Labs</div>
+    <h1 class="title">⚡ VELYX Framework</h1>
+    <p class="subtitle">HTML-First & Fine-Grained Reactivity (Zero Virtual DOM)</p>
+
+    <div class="counter-display">
+      <span class="count-val">{{ count }}</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-dec" vx-click="decrement">-</button>
+      <button class="btn btn-reset" vx-click="reset">Reset</button>
+      <button class="btn btn-inc" vx-click="increment">+</button>
+    </div>
+  </div>
+</template>
+
+<script>
+state count = 0
+
+function increment() {
+  count++
+}
+
+function decrement() {
+  count--
+}
+
+function reset() {
+  count = 0
+}
+</script>
+
+<style>
+.velyx-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(to right, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.counter-display {
+  background: #0f172a;
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.count-val {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-inc {
+  background: #6366f1;
+  color: white;
+}
+.btn-inc:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.btn-dec {
+  background: #334155;
+  color: white;
+}
+.btn-dec:hover {
+  background: #475569;
+  transform: translateY(-2px);
+}
+
+.btn-reset {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #94a3b8;
+}
+.btn-reset:hover {
+  color: white;
+  border-color: #94a3b8;
+}
+</style>

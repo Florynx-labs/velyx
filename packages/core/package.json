@@ -1,0 +1,20 @@
+{
+  "name": "@velyx/core",
+  "version": "0.1.0",
+  "description": "Core reactive primitives and component lifecycle for Velyx Framework",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["velyx", "signals", "reactivity", "core"],
+  "author": "Florynx Labs",
+  "license": "MIT"
+}

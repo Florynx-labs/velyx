@@ -1,0 +1,23 @@
+{
+  "name": "@velyx/adapter-vite",
+  "version": "0.1.0",
+  "description": "Vite plugin adapter for Velyx SFC (.vx) components",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@velyx/compiler": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["velyx", "vite", "adapter", "plugin"],
+  "author": "Florynx Labs",
+  "license": "MIT"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@velyx/cli",
+  "version": "0.1.0",
+  "description": "Command Line Tool for Velyx Framework by Florynx Labs",
+  "type": "module",
+  "bin": {
+    "velyx": "./bin/velyx.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@velyx/compiler": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["velyx", "cli", "florynx-labs"],
+  "author": "Florynx Labs",
+  "license": "MIT"
+}

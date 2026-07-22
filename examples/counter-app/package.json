@@ -1,0 +1,20 @@
+{
+  "name": "counter-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@velyx/core": "workspace:*",
+    "@velyx/runtime": "workspace:*",
+    "@velyx/compiler": "workspace:*",
+    "@velyx/router": "workspace:*"
+  },
+  "devDependencies": {
+    "@velyx/adapter-vite": "workspace:*",
+    "vite": "^5.2.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "velyx-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "VELYX Framework - Modern, Fine-Grained, HTML-First Frontend Framework by Florynx Labs",
+  "author": "Florynx Labs",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm --filter \"./packages/**\" --filter \"./adapters/**\" run build",
+    "test": "node --experimental-strip-types packages/core/src/index.test.ts && node --experimental-strip-types packages/compiler/src/index.test.ts",
+    "dev": "pnpm --filter counter-app dev"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  }
+}

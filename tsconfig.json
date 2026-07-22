@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": true,
+    "baseUrl": ".",
+    "types": ["node"],
+    "paths": {
+      "@velyx/core": ["./packages/core/src/index.ts"],
+      "@velyx/runtime": ["./packages/runtime/src/index.ts"],
+      "@velyx/compiler": ["./packages/compiler/src/index.ts"],
+      "@velyx/server": ["./packages/server/src/index.ts"],
+      "@velyx/router": ["./packages/router/src/index.ts"],
+      "@velyx/cli": ["./packages/cli/src/index.ts"],
+      "@velyx/devtools": ["./packages/devtools/src/index.ts"],
+      "@velyx/adapter-vite": ["./adapters/adapter-vite/src/index.ts"]
+    },
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+  },
+  "exclude": ["node_modules", "dist"]
+}

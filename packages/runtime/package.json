@@ -1,0 +1,23 @@
+{
+  "name": "@velyx/runtime",
+  "version": "0.1.0",
+  "description": "Ultra-lightweight fine-grained DOM runtime for Velyx Framework (<10KB)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@velyx/core": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["velyx", "runtime", "dom"],
+  "author": "Florynx Labs",
+  "license": "MIT"
+}
