@@ -1,7 +1,7 @@
 {
-  "name": "@velyx/runtime",
+  "name": "@velyx/runtime-dom",
   "version": "0.2.0",
-  "description": "Ultra-lightweight DOM runtime facade for Velyx Framework",
+  "description": "Browser DOM target driver for Velyx Framework with direct element updates and keyed list reconciliation",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,13 +12,12 @@
     }
   },
   "dependencies": {
-    "@velyx/runtime-core": "workspace:*",
-    "@velyx/runtime-dom": "workspace:*"
+    "@velyx/runtime-core": "workspace:*"
   },
   "scripts": {
     "build": "tsc"
   },
-  "keywords": ["velyx", "runtime", "dom"],
+  "keywords": ["velyx", "runtime-dom", "dom", "reconciliation"],
   "author": "Florynx Labs",
   "license": "MIT"
 }

@@ -9,11 +9,12 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "composite": true,
     "baseUrl": ".",
     "types": ["node"],
     "paths": {
+      "@velyx/runtime-core": ["./packages/runtime-core/src/index.ts"],
+      "@velyx/runtime-dom": ["./packages/runtime-dom/src/index.ts"],
       "@velyx/core": ["./packages/core/src/index.ts"],
       "@velyx/runtime": ["./packages/runtime/src/index.ts"],
       "@velyx/compiler": ["./packages/compiler/src/index.ts"],

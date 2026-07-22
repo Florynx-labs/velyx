@@ -1,13 +1,13 @@
 {
   "name": "velyx-monorepo",
   "private": true,
-  "version": "0.1.0",
-  "description": "VELYX Framework - Modern, Fine-Grained, HTML-First Frontend Framework by Florynx Labs",
+  "version": "0.2.0",
+  "description": "VELYX Framework - Production-Grade Compiler-First Frontend Platform by Florynx Labs",
   "author": "Florynx Labs",
   "license": "MIT",
   "scripts": {
     "build": "pnpm --filter \"./packages/**\" --filter \"./adapters/**\" run build",
-    "test": "node --experimental-strip-types packages/core/src/index.test.ts && node --experimental-strip-types packages/compiler/src/index.test.ts",
+    "test": "pnpm build && node --test packages/runtime-core/dist/index.test.js packages/core/dist/index.test.js packages/compiler/dist/index.test.js",
     "dev": "pnpm --filter counter-app dev"
   },
   "devDependencies": {

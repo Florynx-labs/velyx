@@ -1,7 +1,7 @@
 {
-  "name": "@velyx/runtime",
+  "name": "@velyx/runtime-core",
   "version": "0.2.0",
-  "description": "Ultra-lightweight DOM runtime facade for Velyx Framework",
+  "description": "Environment-agnostic reactive core, signals graph, scheduler, and lifecycle for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,14 +11,10 @@
       "import": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "@velyx/runtime-core": "workspace:*",
-    "@velyx/runtime-dom": "workspace:*"
-  },
   "scripts": {
     "build": "tsc"
   },
-  "keywords": ["velyx", "runtime", "dom"],
+  "keywords": ["velyx", "signals", "scheduler", "runtime-core"],
   "author": "Florynx Labs",
   "license": "MIT"
 }

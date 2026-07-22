@@ -51,7 +51,11 @@ importers:
 
   packages/compiler: {}
 
-  packages/core: {}
+  packages/core:
+    dependencies:
+      '@velyx/runtime-core':
+        specifier: workspace:*
+        version: link:../runtime-core
 
   packages/devtools:
     dependencies:
@@ -70,9 +74,20 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@velyx/core':
+      '@velyx/runtime-core':
         specifier: workspace:*
-        version: link:../core
+        version: link:../runtime-core
+      '@velyx/runtime-dom':
+        specifier: workspace:*
+        version: link:../runtime-dom
+
+  packages/runtime-core: {}
+
+  packages/runtime-dom:
+    dependencies:
+      '@velyx/runtime-core':
+        specifier: workspace:*
+        version: link:../runtime-core
 
   packages/server:
     dependencies:
