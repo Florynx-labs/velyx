@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VELYX — The Compiler-First Reactive Platform</title>
-  <meta name="description" content="VELYX is a production-grade compiler-first frontend platform created by Florynx Labs. Zero-VDOM, fine-grained signals, static IR optimization." />
+  <meta name="description"
+    content="VELYX is a production-grade compiler-first frontend platform created by Florynx Labs. Zero-VDOM, fine-grained signals, static IR optimization." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
+
 <body>
   <div class="bg-glow"></div>
 
@@ -35,14 +40,20 @@
 
   <!-- Hero Section -->
   <header class="hero-section container">
-    <div class="hero-pill">✨ Florynx Labs Architecture Release</div>
-    <h1 class="hero-title">Compiler-First.<br/>Zero-VDOM Reactivity.</h1>
-    <p class="hero-subtitle">
-      VELYX is a next-generation frontend platform. By compiling HTML single-file components (.vx) directly into fine-grained reactive DOM operations, VELYX eliminates Virtual DOM overhead for unbeatable speed.
-    </p>
-    <div class="hero-actions">
-      <a href="#playground" class="btn-primary">Open Interactive Compiler Playground</a>
-      <a href="https://github.com/Florynx-labs/velyx" target="_blank" class="btn-secondary">View Monorepo on GitHub</a>
+    <div class="hero-content">
+      <div class="hero-pill">✨ Florynx Labs Architecture Release</div>
+      <h1 class="hero-title">Compiler the future.<br />Of The Web.</h1>
+      <p class="hero-subtitle">
+        VELYX is a next-generation frontend platform. By compiling HTML single-file components (.vx) directly into
+        fine-grained reactive DOM operations, VELYX eliminates Virtual DOM overhead for unbeatable speed.
+      </p>
+      <div class="hero-actions">
+        <a href="#playground" class="btn-primary">Open Interactive Compiler Playground</a>
+        <a href="https://github.com/Florynx-labs/velyx" target="_blank" class="btn-secondary">View Monorepo on GitHub</a>
+      </div>
+    </div>
+    <div class="hero-mascot-container">
+      <img src="/mascotte.png" alt="VELYX Mascot" class="hero-mascot-img" />
     </div>
   </header>
 
@@ -50,7 +61,8 @@
   <section id="playground" class="container">
     <div class="section-header">
       <h2 class="section-title">Synchronized 4-Panel Compiler Playground</h2>
-      <p class="section-desc">Observe the VELYX compiler transform .vx single-file components into IR and fine-grained JavaScript code in real-time.</p>
+      <p class="section-desc">Observe the VELYX compiler transform .vx single-file components into IR and fine-grained
+        JavaScript code in real-time.</p>
     </div>
 
     <div class="playground-container">
@@ -59,7 +71,8 @@
           <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Select Sample:</label>
           <select id="playground-sample-select" class="sample-select"></select>
         </div>
-        <div id="playground-metrics" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan);">
+        <div id="playground-metrics"
+          style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan);">
           ⚡ Ready
         </div>
       </div>
@@ -130,37 +143,43 @@
       <div class="feature-card">
         <div class="feature-icon">⚡</div>
         <h3 class="feature-title">Compiler-First & Zero-VDOM</h3>
-        <p class="feature-desc">Dynamic expressions are isolated statically at compile time. No Virtual DOM diffing overhead or reconciler memory pressure.</p>
+        <p class="feature-desc">Dynamic expressions are isolated statically at compile time. No Virtual DOM diffing
+          overhead or reconciler memory pressure.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">💎</div>
         <h3 class="feature-title">Fine-Grained Signal Graph</h3>
-        <p class="feature-desc">Reactivity operates on exact DOM text nodes and attributes. State updates trigger surgical updates without re-running component functions.</p>
+        <p class="feature-desc">Reactivity operates on exact DOM text nodes and attributes. State updates trigger
+          surgical updates without re-running component functions.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">⏱️</div>
         <h3 class="feature-title">Priority-Based Scheduler</h3>
-        <p class="feature-desc">Time-sliced update queue prioritizing user interactions over background background work for smooth 60fps frame rates.</p>
+        <p class="feature-desc">Time-sliced update queue prioritizing user interactions over background background work
+          for smooth 60fps frame rates.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">📦</div>
         <h3 class="feature-title">Tiny Runtime Footprint</h3>
-        <p class="feature-desc">Core runtime library is less than 3KB gzipped. Unused primitives are automatically tree-shaken by Vite or Rollup.</p>
+        <p class="feature-desc">Core runtime library is less than 3KB gzipped. Unused primitives are automatically
+          tree-shaken by Vite or Rollup.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🛠️</div>
         <h3 class="feature-title">Complete Developer Platform</h3>
-        <p class="feature-desc">Official Vite plugin, VS Code extension with syntax highlighting, DevTools browser overlay, and CLI project generator.</p>
+        <p class="feature-desc">Official Vite plugin, VS Code extension with syntax highlighting, DevTools browser
+          overlay, and CLI project generator.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🔒</div>
         <h3 class="feature-title">Ultra-Strict TypeScript Core</h3>
-        <p class="feature-desc">Built with 100% strict TypeScript types (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) across the monorepo.</p>
+        <p class="feature-desc">Built with 100% strict TypeScript types (`noUncheckedIndexedAccess`,
+          `exactOptionalPropertyTypes`) across the monorepo.</p>
       </div>
     </div>
   </section>
@@ -172,10 +191,13 @@
       <p class="section-desc">Comprehensive guides, language specs, and architecture references.</p>
     </div>
 
-    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
+    <div
+      style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
       <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-cyan);">Quick Start Command</h3>
-      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Scaffold a new VELYX project in under 10 seconds using our official CLI runner:</p>
-      <pre style="background: #090c13; padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: var(--font-mono); color: var(--accent-emerald); font-size: 1rem;">npx create-velyx-app@latest my-velyx-project</pre>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Scaffold a new VELYX project in under 10 seconds
+        using our official CLI runner:</p>
+      <pre
+        style="background: #090c13; padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: var(--font-mono); color: var(--accent-emerald); font-size: 1rem;">npx create-velyx-app@latest my-velyx-project</pre>
     </div>
   </section>
 
@@ -189,15 +211,18 @@
     <div class="features-grid">
       <div class="feature-card">
         <h3 class="feature-title" style="color: var(--accent-cyan);">1. Hello World & Signals</h3>
-        <p class="feature-desc">Learn how to declare `state` variables, read signal accessors, and register reactive `effect()` subscribers.</p>
+        <p class="feature-desc">Learn how to declare `state` variables, read signal accessors, and register reactive
+          `effect()` subscribers.</p>
       </div>
       <div class="feature-card">
         <h3 class="feature-title" style="color: var(--accent-purple);">2. Counter & Two-Way Binding</h3>
-        <p class="feature-desc">Master `vx-click` event handlers, `vx-model` inputs, and fine-grained state mutation patterns.</p>
+        <p class="feature-desc">Master `vx-click` event handlers, `vx-model` inputs, and fine-grained state mutation
+          patterns.</p>
       </div>
       <div class="feature-card">
         <h3 class="feature-title" style="color: var(--accent-emerald);">3. Keyed List Reconciliation</h3>
-        <p class="feature-desc">Build a high-performance Todo application using `bindLoop()` and DOM identity diffing.</p>
+        <p class="feature-desc">Build a high-performance Todo application using `bindLoop()` and DOM identity diffing.
+        </p>
       </div>
     </div>
   </section>
@@ -209,7 +234,8 @@
       <p class="section-desc">Empirical comparison against industry baseline frameworks.</p>
     </div>
 
-    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
+    <div
+      style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
       <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
         <thead>
           <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
@@ -259,4 +285,5 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>
