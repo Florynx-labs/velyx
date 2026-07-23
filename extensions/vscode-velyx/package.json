@@ -1,0 +1,50 @@
+{
+  "name": "vscode-velyx",
+  "displayName": "VELYX Language Support & Diagnostics",
+  "description": "Official VS Code Extension for VELYX .vx Single-File Components",
+  "version": "0.4.0",
+  "publisher": "florynx-labs",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:velyx"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "velyx",
+        "aliases": ["VELYX", "velyx"],
+        "extensions": [".vx"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "velyx",
+        "scopeName": "source.velyx",
+        "path": "./syntaxes/velyx.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "velyx",
+        "path": "./snippets/velyx.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.4.5"
+  }
+}

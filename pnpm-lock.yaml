@@ -21,6 +21,28 @@ importers:
         specifier: workspace:*
         version: link:../../packages/compiler
 
+  apps/docs-site:
+    dependencies:
+      '@velyx/compiler':
+        specifier: workspace:*
+        version: link:../../packages/compiler
+      '@velyx/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@velyx/runtime-core':
+        specifier: workspace:*
+        version: link:../../packages/runtime-core
+      '@velyx/runtime-dom':
+        specifier: workspace:*
+        version: link:../../packages/runtime-dom
+    devDependencies:
+      typescript:
+        specifier: ^5.4.5
+        version: 5.9.3
+      vite:
+        specifier: ^5.4.21
+        version: 5.4.21(@types/node@20.19.43)
+
   examples/counter-app:
     dependencies:
       '@velyx/compiler':

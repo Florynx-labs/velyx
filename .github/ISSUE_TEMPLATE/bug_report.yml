@@ -1,0 +1,30 @@
+name: 🐛 Bug Report
+description: Report an issue or bug in VELYX compiler, runtime, or tools
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve VELYX! Please fill in as much detail as possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal Reproduction Code
+      description: Provide a minimal code snippet or link to a velyx.dev playground URL demonstrating the bug.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: VELYX Version
+      placeholder: e.g. v0.4.0
+    validations:
+      required: true

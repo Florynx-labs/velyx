@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "VELYX",
+  "patterns": [
+    { "include": "#sfc-blocks" },
+    { "include": "#velyx-directives" },
+    { "include": "#mustache-expressions" }
+  ],
+  "repository": {
+    "sfc-blocks": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.sfc.velyx",
+          "match": "</?(template|script|style)>"
+        }
+      ]
+    },
+    "velyx-directives": {
+      "patterns": [
+        {
+          "name": "keyword.control.directive.velyx",
+          "match": "\\b(vx-click|vx-model|vx-on:[a-zA-Z0-9_-]+|vx-if|vx-for)\\b"
+        },
+        {
+          "name": "keyword.other.state.velyx",
+          "match": "\\bstate\\b"
+        }
+      ]
+    },
+    "mustache-expressions": {
+      "begin": "\\{\\{",
+      "end": "\\}\\}",
+      "name": "expression.mustache.velyx"
+    }
+  },
+  "scopeName": "source.velyx"
+}

@@ -1,0 +1,34 @@
+<template>
+  <div class="card">
+    <h1>Welcome to VELYX</h1>
+    <p>Fine-grained signal reactivity with zero Virtual DOM overhead.</p>
+    <button vx-click="inc">Count: {{ count }}</button>
+  </div>
+</template>
+
+<script>
+  state count = 0;
+  function inc() {
+    count++;
+  }
+</script>
+
+<style>
+  .card {
+    padding: 2rem;
+    background: #090c13;
+    color: #fff;
+    border-radius: 12px;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  button {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>

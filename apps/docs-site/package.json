@@ -1,0 +1,21 @@
+{
+  "name": "velyx-docs-site",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@velyx/compiler": "workspace:*",
+    "@velyx/core": "workspace:*",
+    "@velyx/runtime-core": "workspace:*",
+    "@velyx/runtime-dom": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vite": "^5.4.21"
+  }
+}

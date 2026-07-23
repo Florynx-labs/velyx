@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VELYX — The Compiler-First Reactive Platform</title>
+  <meta name="description" content="VELYX is a production-grade compiler-first frontend platform created by Florynx Labs. Zero-VDOM, fine-grained signals, static IR optimization." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+      <span>VELYX</span>
+      <span class="brand-badge">v0.4.0 Public Preview</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#playground" class="nav-tab" data-target="playground">Playground</a></li>
+      <li><a href="#features" class="nav-tab" data-target="features">Features</a></li>
+      <li><a href="#docs" class="nav-tab" data-target="docs">Docs</a></li>
+      <li><a href="#tutorials" class="nav-tab" data-target="tutorials">Tutorials</a></li>
+      <li><a href="#benchmarks" class="nav-tab" data-target="benchmarks">Benchmarks</a></li>
+      <li><a href="https://github.com/Florynx-labs/velyx" target="_blank">GitHub</a></li>
+    </ul>
+    <div style="display: flex; gap: 0.75rem;">
+      <a href="#docs" class="btn-secondary">Read Docs</a>
+      <a href="#playground" class="btn-primary">Try Playground</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section container">
+    <div class="hero-pill">✨ Florynx Labs Architecture Release</div>
+    <h1 class="hero-title">Compiler-First.<br/>Zero-VDOM Reactivity.</h1>
+    <p class="hero-subtitle">
+      VELYX is a next-generation frontend platform. By compiling HTML single-file components (.vx) directly into fine-grained reactive DOM operations, VELYX eliminates Virtual DOM overhead for unbeatable speed.
+    </p>
+    <div class="hero-actions">
+      <a href="#playground" class="btn-primary">Open Interactive Compiler Playground</a>
+      <a href="https://github.com/Florynx-labs/velyx" target="_blank" class="btn-secondary">View Monorepo on GitHub</a>
+    </div>
+  </header>
+
+  <!-- 4-Panel Synchronized Interactive Compiler Playground -->
+  <section id="playground" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Synchronized 4-Panel Compiler Playground</h2>
+      <p class="section-desc">Observe the VELYX compiler transform .vx single-file components into IR and fine-grained JavaScript code in real-time.</p>
+    </div>
+
+    <div class="playground-container">
+      <div class="playground-toolbar">
+        <div class="toolbar-controls">
+          <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Select Sample:</label>
+          <select id="playground-sample-select" class="sample-select"></select>
+        </div>
+        <div id="playground-metrics" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan);">
+          ⚡ Ready
+        </div>
+      </div>
+
+      <div class="playground-grid">
+        <!-- Panel 1: VX Source Code -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Panel 1: .vx Source Code</span>
+            <span style="color: var(--accent-cyan);">SFC Editor</span>
+          </div>
+          <div class="panel-body">
+            <textarea id="playground-source" class="editor-textarea" spellcheck="false"></textarea>
+          </div>
+        </div>
+
+        <!-- Panel 2: Compiler AST -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Panel 2: Parsed Template AST</span>
+            <span style="color: var(--accent-purple);">Parser Node Tree</span>
+          </div>
+          <div class="panel-body">
+            <pre id="playground-ast"></pre>
+          </div>
+        </div>
+
+        <!-- Panel 3: Intermediate Representation (IR) -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Panel 3: Intermediate Representation (IRRoot)</span>
+            <span style="color: var(--accent-emerald);">Optimization Passes</span>
+          </div>
+          <div class="panel-body">
+            <pre id="playground-ir"></pre>
+          </div>
+        </div>
+
+        <!-- Panel 4: Generated JavaScript & Live Preview -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Panel 4: Generated JavaScript & Live Sandbox</span>
+            <span style="color: var(--accent-pink);">Target Output</span>
+          </div>
+          <div class="panel-body" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="flex: 1; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+              <strong style="color: var(--text-secondary); font-size: 0.75rem;">EMITTED ES MODULE CODE:</strong>
+              <pre id="playground-js" style="margin-top: 0.5rem; max-height: 180px; overflow: auto;"></pre>
+            </div>
+            <div style="flex: 1;">
+              <strong style="color: var(--text-secondary); font-size: 0.75rem;">LIVE REACTIVE DOM PREVIEW:</strong>
+              <div id="playground-preview" style="margin-top: 0.5rem; height: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Architecture Features -->
+  <section id="features" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Architectural Highlights</h2>
+      <p class="section-desc">Designed from first principles to outpace traditional framework runtimes.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Compiler-First & Zero-VDOM</h3>
+        <p class="feature-desc">Dynamic expressions are isolated statically at compile time. No Virtual DOM diffing overhead or reconciler memory pressure.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3 class="feature-title">Fine-Grained Signal Graph</h3>
+        <p class="feature-desc">Reactivity operates on exact DOM text nodes and attributes. State updates trigger surgical updates without re-running component functions.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⏱️</div>
+        <h3 class="feature-title">Priority-Based Scheduler</h3>
+        <p class="feature-desc">Time-sliced update queue prioritizing user interactions over background background work for smooth 60fps frame rates.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3 class="feature-title">Tiny Runtime Footprint</h3>
+        <p class="feature-desc">Core runtime library is less than 3KB gzipped. Unused primitives are automatically tree-shaken by Vite or Rollup.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛠️</div>
+        <h3 class="feature-title">Complete Developer Platform</h3>
+        <p class="feature-desc">Official Vite plugin, VS Code extension with syntax highlighting, DevTools browser overlay, and CLI project generator.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">Ultra-Strict TypeScript Core</h3>
+        <p class="feature-desc">Built with 100% strict TypeScript types (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) across the monorepo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documentation Highlights Section -->
+  <section id="docs" class="container" style="margin-bottom: 6rem;">
+    <div class="section-header">
+      <h2 class="section-title">Documentation Platform Overview</h2>
+      <p class="section-desc">Comprehensive guides, language specs, and architecture references.</p>
+    </div>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
+      <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-cyan);">Quick Start Command</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Scaffold a new VELYX project in under 10 seconds using our official CLI runner:</p>
+      <pre style="background: #090c13; padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: var(--font-mono); color: var(--accent-emerald); font-size: 1rem;">npx create-velyx-app@latest my-velyx-project</pre>
+    </div>
+  </section>
+
+  <!-- Tutorials Showcase -->
+  <section id="tutorials" class="container" style="margin-bottom: 6rem;">
+    <div class="section-header">
+      <h2 class="section-title">Interactive Step-by-Step Tutorials</h2>
+      <p class="section-desc">Learn VELYX by building real-world applications step by step.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3 class="feature-title" style="color: var(--accent-cyan);">1. Hello World & Signals</h3>
+        <p class="feature-desc">Learn how to declare `state` variables, read signal accessors, and register reactive `effect()` subscribers.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title" style="color: var(--accent-purple);">2. Counter & Two-Way Binding</h3>
+        <p class="feature-desc">Master `vx-click` event handlers, `vx-model` inputs, and fine-grained state mutation patterns.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title" style="color: var(--accent-emerald);">3. Keyed List Reconciliation</h3>
+        <p class="feature-desc">Build a high-performance Todo application using `bindLoop()` and DOM identity diffing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benchmarks Section -->
+  <section id="benchmarks" class="container" style="margin-bottom: 6rem;">
+    <div class="section-header">
+      <h2 class="section-title">Performance Benchmarks</h2>
+      <p class="section-desc">Empirical comparison against industry baseline frameworks.</p>
+    </div>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2.5rem;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+            <th style="padding: 0.8rem;">Framework</th>
+            <th style="padding: 0.8rem;">Reactivity Model</th>
+            <th style="padding: 0.8rem;">Bundle Size (gzip)</th>
+            <th style="padding: 0.8rem;">Signal Latency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 0.8rem; font-weight: 700; color: var(--accent-cyan);">VELYX v0.4</td>
+            <td style="padding: 0.8rem;">Compiler-First Fine-Grained Signals</td>
+            <td style="padding: 0.8rem; color: var(--accent-emerald); font-weight: 700;">2.4 KB</td>
+            <td style="padding: 0.8rem; color: var(--accent-emerald); font-weight: 700;">0.002 ms</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+            <td style="padding: 0.8rem;">SolidJS</td>
+            <td style="padding: 0.8rem;">Fine-Grained Signals</td>
+            <td style="padding: 0.8rem;">7.2 KB</td>
+            <td style="padding: 0.8rem;">0.003 ms</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+            <td style="padding: 0.8rem;">Svelte 5</td>
+            <td style="padding: 0.8rem;">Compiler Runes</td>
+            <td style="padding: 0.8rem;">11.5 KB</td>
+            <td style="padding: 0.8rem;">0.005 ms</td>
+          </tr>
+          <tr style="color: var(--text-secondary);">
+            <td style="padding: 0.8rem;">React 19</td>
+            <td style="padding: 0.8rem;">Virtual DOM Re-render</td>
+            <td style="padding: 0.8rem;">43.8 KB</td>
+            <td style="padding: 0.8rem;">0.120 ms</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Florynx Labs. VELYX is open-source under the MIT License.</p>
+      <p style="margin-top: 0.5rem;">Designed with precision for compiler-first frontend engineers worldwide.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

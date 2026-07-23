@@ -1,0 +1,30 @@
+{
+  "VELYX SFC Component": {
+    "prefix": "vx-component",
+    "body": [
+      "<template>",
+      "  <div class=\"$1\">",
+      "    <h2>{{ title }}</h2>",
+      "  </div>",
+      "</template>",
+      "",
+      "<script>",
+      "  state title = \"$2\";",
+      "</script>",
+      "",
+      "<style>",
+      "  .$1 {",
+      "    padding: 1rem;",
+      "  }",
+      "</style>"
+    ],
+    "description": "Create a new VELYX Single-File Component"
+  },
+  "VELYX Signal State": {
+    "prefix": "vx-state",
+    "body": [
+      "state ${1:count} = ${2:0};"
+    ],
+    "description": "Declare a reactive signal state"
+  }
+}

@@ -1,5 +1,5 @@
 /**
- * @velyx/devtools (v0.3.0)
+ * @velyx/devtools (v0.4.0)
  * Developed by Florynx Labs
  *
  * Browser-side hook for real-time inspection of signals, components, and
@@ -10,6 +10,9 @@
  *
  * @packageDocumentation
  */
+
+import { mountDevtoolsUI } from './ui.js';
+export { mountDevtoolsUI };
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
@@ -52,7 +55,7 @@ declare global {
 
 // ─── Internal State ───────────────────────────────────────────────────────────
 
-const trackedSignals   = new Map<string, () => unknown>();
+const trackedSignals    = new Map<string, () => unknown>();
 const trackedComponents = new Set<HTMLElement>();
 
 // ─── initDevtools ─────────────────────────────────────────────────────────────
@@ -77,7 +80,7 @@ export function initDevtools(): DevtoolsHook {
     },
 
     registerComponent(componentName: string, element: HTMLElement): void {
-      // componentName is stored for a future component-tree inspector
+      // componentName is reserved for the future component-tree inspector
       void componentName;
       trackedComponents.add(element);
       notifyDevtoolsChange();
@@ -93,6 +96,7 @@ export function initDevtools(): DevtoolsHook {
 
   if (typeof window !== 'undefined') {
     window.__VELYX_DEVTOOLS__ = hook;
+    mountDevtoolsUI(hook);
   }
 
   return hook;

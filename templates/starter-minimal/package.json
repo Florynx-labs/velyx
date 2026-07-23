@@ -1,0 +1,19 @@
+{
+  "name": "velyx-starter-minimal",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@velyx/core": "^0.4.0",
+    "@velyx/runtime-dom": "^0.4.0"
+  },
+  "devDependencies": {
+    "@velyx/adapter-vite": "^0.4.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.4.21"
+  }
+}
