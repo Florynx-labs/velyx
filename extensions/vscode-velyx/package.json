@@ -1,16 +1,18 @@
 {
   "name": "vscode-velyx",
   "displayName": "VELYX Language Support & Diagnostics",
-  "description": "Official VS Code Extension for VELYX .vx Single-File Components",
+  "description": "Official VS Code Extension for VELYX .vx Single-File Components — Syntax Highlighting, Snippets, Live Diagnostics and .vx File Icons.",
   "version": "0.4.0",
   "publisher": "florynx-labs",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.80.0"
   },
   "categories": [
     "Programming Languages",
     "Snippets",
-    "Linters"
+    "Linters",
+    "Themes"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [
@@ -22,7 +24,11 @@
         "id": "velyx",
         "aliases": ["VELYX", "velyx"],
         "extensions": [".vx"],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icon.png",
+          "dark": "./icon.png"
+        }
       }
     ],
     "grammars": [
@@ -36,6 +42,13 @@
       {
         "language": "velyx",
         "path": "./snippets/velyx.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "velyx-file-icons",
+        "label": "VELYX File Icons",
+        "path": "./themes/velyx-file-icons.json"
       }
     ]
   },

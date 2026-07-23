@@ -1,0 +1,13 @@
+{
+  "iconDefinitions": {
+    "_velyx_vx": {
+      "iconPath": "../icon.png"
+    }
+  },
+  "fileExtensions": {
+    "vx": "_velyx_vx"
+  },
+  "languageIds": {
+    "velyx": "_velyx_vx"
+  }
+}
