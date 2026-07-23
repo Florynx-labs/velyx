@@ -3,11 +3,11 @@ import * as vscode from 'vscode';
 export function activate(context: vscode.ExtensionContext): void {
   console.log('VELYX VS Code Extension activated!');
 
-  // Register Hover Information Provider for .vx files
   const hoverProvider = vscode.languages.registerHoverProvider('velyx', {
-    provideHover(document, position) {
+    provideHover(document: vscode.TextDocument, position: vscode.Position): vscode.Hover | undefined {
       const range = document.getWordRangeAtPosition(position);
-      const word  = document.getText(range);
+      if (!range) return undefined;
+      const word = document.getText(range);
 
       if (word === 'state') {
         return new vscode.Hover(

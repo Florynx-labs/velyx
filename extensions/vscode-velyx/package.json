@@ -1,10 +1,17 @@
 {
   "name": "vscode-velyx",
-  "displayName": "VELYX Language Support & Diagnostics",
-  "description": "Official VS Code Extension for VELYX .vx Single-File Components — Syntax Highlighting, Snippets, Live Diagnostics and .vx File Icons.",
+  "displayName": "VELYX — .vx Language Support",
+  "description": "Official VS Code extension for VELYX .vx Single-File Components. Syntax highlighting, file icons, snippets and hover information for the VELYX compiler-first reactive framework.",
   "version": "0.4.0",
   "publisher": "florynx-labs",
   "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Florynx-labs/velyx"
+  },
+  "homepage": "https://velyx.dev",
+  "keywords": ["velyx", "vx", "frontend", "reactive", "compiler", "signals", "florynx"],
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -53,11 +60,14 @@
     ]
   },
   "scripts": {
-    "build": "tsc -p ."
+    "compile": "tsc -p .",
+    "build": "tsc -p .",
+    "package": "vsce package --no-dependencies"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^3.3.2",
     "typescript": "^5.4.5"
   }
 }

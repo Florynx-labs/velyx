@@ -8,11 +8,11 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@velyx/core": "^0.4.0",
-    "@velyx/runtime-dom": "^0.4.0"
+    "@velyx/core": "workspace:*",
+    "@velyx/runtime-dom": "workspace:*"
   },
   "devDependencies": {
-    "@velyx/adapter-vite": "^0.4.0",
+    "@velyx/adapter-vite": "workspace:*",
     "typescript": "^5.4.5",
     "vite": "^5.4.21"
   }
