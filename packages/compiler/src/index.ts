@@ -8,13 +8,21 @@
  * @packageDocumentation
  */
 
+// ─── Exports ──────────────────────────────────────────────────────────────────
+
+export * from './config.js';
+export * from './insights.js';
+import type { VelyxConfig } from './config.js';
+import type { TransitionInsight } from './insights.js';
+
 // ─── SFC Types ────────────────────────────────────────────────────────────────
 
-/** The three raw blocks extracted from a `.vx` single-file component. */
+/** The raw blocks extracted from a `.vx` single-file component. */
 export interface ParsedVelyxSFC {
   readonly template: string;
   readonly script: string;
   readonly style: string;
+  readonly transition: string;
 }
 
 /** A node produced by the HTML template parser. */
@@ -50,6 +58,20 @@ export interface IRElementNode extends BaseIRNode {
   readonly attrs: Readonly<Record<string, string>>;
   readonly events: Readonly<Record<string, string>>;
   readonly children: readonly IRNode[];
+  readonly transition?: string;
+}
+
+// ─── Transition IR ────────────────────────────────────────────────────────────
+
+export interface TransitionKeyframe {
+  readonly offset: string;
+  readonly properties: Readonly<Record<string, string>>;
+}
+
+export interface TransitionDefinition {
+  readonly name: string;
+  readonly keyframes: readonly TransitionKeyframe[];
+  readonly used: boolean;
 }
 
 /** The root container carrying compiled script, style, and state metadata. */
@@ -59,6 +81,7 @@ export interface IRRootNode extends BaseIRNode {
   readonly style: string;
   readonly stateVars: ReadonlySet<string>;
   readonly children: readonly IRNode[];
+  readonly transitions: readonly TransitionDefinition[];
 }
 
 export type IRNode = IRTextNode | IRElementNode | IRRootNode;
@@ -74,6 +97,8 @@ export interface CompilationMetadata {
   readonly staticNodesCount: number;
   readonly hydrationIslandsCount: number;
   readonly componentTree: readonly string[];
+  readonly transitions: readonly TransitionInsight[];
+  readonly unusedTransitions: readonly string[];
 }
 
 /** The result returned by {@link compile}. */
@@ -123,11 +148,45 @@ export function parseSFC(source: string): ParsedVelyxSFC {
   const templateMatch = source.match(/<template>([\s\S]*?)<\/template>/i);
   const scriptMatch   = source.match(/<script>([\s\S]*?)<\/script>/i);
   const styleMatch    = source.match(/<style>([\s\S]*?)<\/style>/i);
+  const transitionMatch = source.match(/<transition>([\s\S]*?)<\/transition>/i);
   return {
     template: templateMatch?.[1]?.trim() ?? '',
     script:   scriptMatch?.[1]?.trim()   ?? '',
-    style:    styleMatch?.[1]?.trim()    ?? ''
+    style:    styleMatch?.[1]?.trim()    ?? '',
+    transition: transitionMatch?.[1]?.trim() ?? ''
   };
+}
+
+export function parseTransitionBlock(raw: string): TransitionDefinition[] {
+  const definitions: TransitionDefinition[] = [];
+  const blockRe = /([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/g;
+  const keyframeRe = /([0-9]+%)\s*\{([^}]+)\}/g;
+
+  let blockMatch: RegExpExecArray | null;
+  while ((blockMatch = blockRe.exec(raw)) !== null) {
+    const name = blockMatch[1]!;
+    const body = blockMatch[2]!;
+    
+    const keyframes: TransitionKeyframe[] = [];
+    let kfMatch: RegExpExecArray | null;
+    while ((kfMatch = keyframeRe.exec(body)) !== null) {
+      const offset = kfMatch[1]!;
+      const propsStr = kfMatch[2]!;
+      const properties: Record<string, string> = {};
+      
+      const propRe = /([a-zA-Z0-9-]+)\s*:\s*([^;]+);/g;
+      let pMatch: RegExpExecArray | null;
+      while ((pMatch = propRe.exec(propsStr)) !== null) {
+        properties[pMatch[1]!] = pMatch[2]!.trim();
+      }
+      
+      keyframes.push({ offset, properties });
+    }
+    
+    definitions.push({ name, keyframes, used: false });
+  }
+  
+  return definitions;
 }
 
 // ─── HTML Template Parser ─────────────────────────────────────────────────────
@@ -195,7 +254,8 @@ function parseHtmlNodes(html: string): TemplateNode[] {
 export function astToIR(
   astNodes: readonly TemplateNode[],
   script: string,
-  style: string
+  style: string,
+  transitionBlock: string = ''
 ): IRRootNode {
   const stateVars = new Set<string>();
   const stateRe = /state\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=/g;
@@ -204,12 +264,15 @@ export function astToIR(
     if (m[1] !== undefined) stateVars.add(m[1]);
   }
 
+  const transitions = parseTransitionBlock(transitionBlock);
+
   return {
     type: 'IRRoot',
     script,
     style,
     stateVars,
-    children: astNodes.map(n => convertAstNode(n, stateVars))
+    children: astNodes.map(n => convertAstNode(n, stateVars)),
+    transitions
   };
 }
 
@@ -222,17 +285,20 @@ function convertAstNode(node: TemplateNode, stateVars: ReadonlySet<string>): IRN
 
   const attrs: Record<string, string>  = {};
   const events: Record<string, string> = {};
+  let transition: string | undefined;
 
   for (const [k, v] of Object.entries(node.attrs ?? {})) {
     if (k === 'vx-click' || k.startsWith('vx-on:')) {
       const evt = k === 'vx-click' ? 'click' : k.slice('vx-on:'.length);
       events[evt] = v;
+    } else if (k === 'vx-transition') {
+      transition = v;
     } else {
       attrs[k] = v;
     }
   }
 
-  return {
+  const nodeData: IRElementNode = {
     type: 'IRElement',
     tag: node.tag ?? 'div',
     attrs,
@@ -240,6 +306,13 @@ function convertAstNode(node: TemplateNode, stateVars: ReadonlySet<string>): IRN
     children: (node.children ?? []).map(c => convertAstNode(c, stateVars)),
     isStatic: false
   };
+
+  if (transition !== undefined) {
+    // We cast any because transition is readonly in the type
+    (nodeData as any).transition = transition;
+  }
+
+  return nodeData;
 }
 
 // ─── Optimization Passes ──────────────────────────────────────────────────────
@@ -257,15 +330,49 @@ export function runOptimizationPasses(
   const ir1 = staticNodeDetectionPass(ir);
   // Pass 2: Constant folding (future: collapse literal expressions)
   const ir2 = constantFoldingPass(ir1);
+  // Pass 3: Dead Transition Elimination
+  const ir3 = deadTransitionEliminationPass(ir2);
+
+  const transitionInsights: TransitionInsight[] = ir3.transitions.map(t => ({
+    name: t.name,
+    used: t.used,
+    keyframeCount: t.keyframes.length,
+    strategy: 'waapi'
+  }));
 
   const metadata: CompilationMetadata = {
-    reactiveDependencies: Array.from(ir2.stateVars),
-    staticNodesCount:    countStaticNodes(ir2),
-    hydrationIslandsCount: countHydrationIslands(ir2),
-    componentTree: collectTags(ir2)
+    reactiveDependencies: Array.from(ir3.stateVars),
+    staticNodesCount:    countStaticNodes(ir3),
+    hydrationIslandsCount: countHydrationIslands(ir3),
+    componentTree: collectTags(ir3),
+    transitions: transitionInsights,
+    unusedTransitions: ir2.transitions.filter(t => !t.used).map(t => t.name)
   };
 
-  return { ir: ir2, metadata };
+  return { ir: ir3, metadata };
+}
+
+function deadTransitionEliminationPass(ir: IRRootNode): IRRootNode {
+  const usedTransitions = new Set<string>();
+  
+  function walk(node: IRNode): void {
+    if (node.type === 'IRElement' && node.transition !== undefined) {
+      usedTransitions.add(node.transition);
+    }
+    if ('children' in node) {
+      for (const c of node.children) walk(c);
+    }
+  }
+  
+  walk(ir);
+  
+  return {
+    ...ir,
+    transitions: ir.transitions.map(t => ({
+      ...t,
+      used: usedTransitions.has(t.name)
+    }))
+  };
 }
 
 function staticNodeDetectionPass(ir: IRRootNode): IRRootNode { return ir; }
@@ -339,12 +446,31 @@ export function generateCodeFromIR(ir: IRRootNode): string {
   const rootEl = ir.children.find(n => n.type === 'IRElement') ?? ir.children[0];
   const templateJs = rootEl !== undefined ? irNodeToJs(rootEl, stateVars) : 'null';
   const escapedCss = ir.style.replace(/`/g, '\\`');
+  const usedTransitions = ir.transitions.filter(t => t.used);
+  
+  let transitionRegistrations = '';
+  if (usedTransitions.length > 0) {
+    transitionRegistrations = usedTransitions.map(t => {
+      const waapiFrames = t.keyframes.map(kf => {
+        // Convert '0%' to 0.0, '100%' to 1.0
+        const offsetVal = parseFloat(kf.offset) / 100;
+        const camelProps = Object.entries(kf.properties).map(([k, v]) => {
+          const camelKey = k.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+          return `"${camelKey}": "${v}"`;
+        }).join(', ');
+        return `{ offset: ${offsetVal}, ${camelProps} }`;
+      }).join(', ');
+      
+      return `registerTransition("${t.name}", { name: "${t.name}", keyframes: [${waapiFrames}] });`;
+    }).join('\n');
+  }
 
   return `\
 import { signal, effect, computed, onMount, onDestroy } from '@velyx/core';
-import { createElement, bindEvent, bindModel, setAttr } from '@velyx/runtime';
+import { createElement, bindEvent, bindModel, setAttr, registerTransition } from '@velyx/runtime';
 
 ${ir.style ? `injectStyles(\`${escapedCss}\`);` : ''}
+${transitionRegistrations}
 
 export default function Component(props = {}) {
   // --- Reactive State ---
@@ -387,6 +513,9 @@ function irNodeToJs(node: IRNode, stateVars: ReadonlySet<string>): string {
           `"vx-on:${evt}": typeof ${handler} === "function" ? ${handler} : () => ${handler}()`
       )
     ];
+    if (node.transition) {
+      attrEntries.push(`"vx-transition": "${node.transition}"`);
+    }
     const attrsStr = attrEntries.length > 0 ? `{ ${attrEntries.join(', ')} }` : 'null';
     const childrenStr = node.children
       .map(c => irNodeToJs(c, stateVars))
@@ -404,6 +533,7 @@ export interface CompileOptions {
   readonly filename?: string;
   readonly plugins?: readonly VelyxPlugin[];
   readonly ssr?: boolean;
+  readonly config?: VelyxConfig;
 }
 
 /**
@@ -422,7 +552,7 @@ export interface CompileOptions {
 export function compile(source: string, _options: CompileOptions = {}): CompileResult {
   const sfc  = parseSFC(source);
   const ast  = parseHtmlNodes(sfc.template);
-  const ir   = astToIR(ast, sfc.script, sfc.style);
+  const ir   = astToIR(ast, sfc.script, sfc.style, sfc.transition);
   const { ir: optimizedIr, metadata } = runOptimizationPasses(ir);
   const code = generateCodeFromIR(optimizedIr);
 

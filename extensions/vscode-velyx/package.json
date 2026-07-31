@@ -2,7 +2,7 @@
   "name": "vscode-velyx",
   "displayName": "VELYX — .vx Language Support",
   "description": "Official VS Code extension for VELYX .vx Single-File Components. Syntax highlighting, file icons, snippets and hover information for the VELYX compiler-first reactive framework.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publisher": "florynx-labs",
   "icon": "icon.png",
   "license": "MIT",
@@ -10,8 +10,16 @@
     "type": "git",
     "url": "https://github.com/Florynx-labs/velyx"
   },
-  "homepage": "https://velyx.dev",
-  "keywords": ["velyx", "vx", "frontend", "reactive", "compiler", "signals", "florynx"],
+  "homepage": "https://velyx.florynxlabs.com",
+  "keywords": [
+    "velyx",
+    "vx",
+    "frontend",
+    "reactive",
+    "compiler",
+    "signals",
+    "florynx"
+  ],
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -29,8 +37,13 @@
     "languages": [
       {
         "id": "velyx",
-        "aliases": ["VELYX", "velyx"],
-        "extensions": [".vx"],
+        "aliases": [
+          "VELYX",
+          "velyx"
+        ],
+        "extensions": [
+          ".vx"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icon.png",

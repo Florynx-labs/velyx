@@ -10,6 +10,8 @@
  */
 
 import { effect } from '@velyx/runtime-core';
+export * from './transition.js';
+import { applyTransition } from './transition.js';
 
 /** Everything that can be passed as a child to `createElement`. */
 export type Child =
@@ -51,6 +53,10 @@ export function createElement(
         bindEvent(el, eventName, value as (e: Event) => void);
       } else if (key === 'vx-model') {
         bindModel(el as HTMLInputElement, value);
+      } else if (key === 'vx-transition') {
+        queueMicrotask(() => {
+          applyTransition(el, String(value));
+        });
       } else if (typeof value === 'function') {
         effect(() => { setAttr(el, key, (value as () => unknown)()); });
       } else {

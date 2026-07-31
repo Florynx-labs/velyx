@@ -21,4 +21,4 @@ Official language support, syntax highlighting, snippets, and `.vx` file icons f
 
 ---
 
-*Powered by Florynx Labs — https://velyx.dev*
+*Powered by Florynx Labs — https://velyx.florynxlabs.com*

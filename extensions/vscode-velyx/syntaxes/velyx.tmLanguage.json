@@ -1,37 +1,233 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "VELYX",
+  "scopeName": "source.velyx",
   "patterns": [
     { "include": "#sfc-blocks" },
-    { "include": "#velyx-directives" },
+    { "include": "#html-tags" },
     { "include": "#mustache-expressions" }
   ],
   "repository": {
     "sfc-blocks": {
       "patterns": [
         {
-          "name": "entity.name.tag.sfc.velyx",
-          "match": "</?(template|script|style)>"
+          "begin": "(<)(template)(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.template.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(template)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.template.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "text.html.velyx",
+          "patterns": [
+            { "include": "#mustache-expressions" },
+            { "include": "text.html.basic" },
+            { "include": "#html-tags" }
+          ]
+        },
+        {
+          "begin": "(<)(script)(\\s+server)?(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.script.velyx" },
+            "3": { "name": "entity.other.attribute-name.server.velyx" },
+            "4": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(script)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.script.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "meta.server.velyx",
+          "patterns": [
+            { "include": "#velyx-keywords" },
+            { "include": "source.ts" }
+          ]
+        },
+        {
+          "begin": "(<)(setup)(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.setup.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(setup)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.setup.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "meta.setup.velyx",
+          "patterns": [
+            { "include": "#velyx-keywords" },
+            { "include": "source.ts" }
+          ]
+        },
+        {
+          "begin": "(<)(style)(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.style.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(style)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.style.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "source.css.velyx",
+          "patterns": [
+            { "include": "source.css" }
+          ]
+        },
+        {
+          "begin": "(<)(transition)(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.transition.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(transition)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.transition.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "meta.transition.velyx",
+          "patterns": [
+            { "include": "#transition-rules" }
+          ]
+        }
+      ]
+    },
+    "html-tags": {
+      "patterns": [
+        {
+          "begin": "(<)([a-zA-Z0-9:-]+)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "text.html.basic" }
+          ]
+        }
+      ]
+    },
+    "velyx-keywords": {
+      "patterns": [
+        {
+          "name": "storage.type.state.velyx",
+          "match": "\\b(state)\\b"
+        },
+        {
+          "name": "storage.type.prop.velyx",
+          "match": "\\b(prop)\\b"
+        },
+        {
+          "name": "storage.type.computed.velyx",
+          "match": "\\b(computed)\\b"
+        },
+        {
+          "name": "storage.type.watch.velyx",
+          "match": "\\b(watch)\\b"
+        },
+        {
+          "name": "keyword.control.lifecycle.velyx",
+          "match": "\\b(onMount|onDestroy)\\b"
+        },
+        {
+          "name": "support.function.velyx",
+          "match": "\\b(provide|inject|batch|effect|component)\\b"
+        },
+        {
+          "name": "support.type.velyx",
+          "match": "\\b(string|number|boolean|object|unknown|never|void|Promise|Array)\\b"
         }
       ]
     },
     "velyx-directives": {
       "patterns": [
         {
-          "name": "keyword.control.directive.velyx",
-          "match": "\\b(vx-click|vx-model|vx-on:[a-zA-Z0-9_-]+|vx-if|vx-for)\\b"
-        },
-        {
-          "name": "keyword.other.state.velyx",
-          "match": "\\bstate\\b"
+          "match": "\\b(vx-(?:click|input|change|submit|model|if|for|show|transition|visible|idle|hover|media|interaction))((?:\\.(?:once|stop|prevent|capture|passive))*)\\b",
+          "captures": {
+            "1": { "name": "entity.other.attribute-name.directive.velyx" },
+            "2": { "name": "entity.other.attribute-name.modifier.velyx" }
+          }
         }
       ]
     },
     "mustache-expressions": {
       "begin": "\\{\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.template.expression.begin.velyx" }
+      },
       "end": "\\}\\}",
-      "name": "expression.mustache.velyx"
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.template.expression.end.velyx" }
+      },
+      "contentName": "meta.mustache.velyx",
+      "patterns": [
+        { "include": "source.ts" },
+        { "include": "#velyx-keywords" },
+        {
+          "name": "keyword.operator.velyx",
+          "match": "[-+/*%<>=&|!^~?:]+"
+        },
+        {
+          "name": "constant.numeric.velyx",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        },
+        {
+          "name": "string.quoted.double.velyx",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [{ "match": "\\\\.", "name": "constant.character.escape.velyx" }]
+        },
+        {
+          "name": "string.quoted.single.velyx",
+          "begin": "'",
+          "end": "'",
+          "patterns": [{ "match": "\\\\.", "name": "constant.character.escape.velyx" }]
+        },
+        {
+          "match": "\\b([a-zA-Z_$][a-zA-Z0-9_$]*)\\s*(?=\\()",
+          "name": "entity.name.function.velyx"
+        },
+        {
+          "match": "\\b([a-zA-Z_$][a-zA-Z0-9_$]*)\\b",
+          "name": "variable.other.velyx"
+        }
+      ]
+    },
+    "transition-rules": {
+      "patterns": [
+        {
+          "match": "^\\s*([a-zA-Z0-9_-]+)\\s*\\{",
+          "captures": {
+            "1": { "name": "support.type.transition.velyx" }
+          }
+        },
+        {
+          "match": "\\b([0-9]+%)\\b",
+          "name": "constant.numeric.percentage.velyx"
+        },
+        {
+          "include": "source.css"
+        }
+      ]
     }
-  },
-  "scopeName": "source.velyx"
+  }
 }

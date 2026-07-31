@@ -26,5 +26,60 @@
       "state ${1:count} = ${2:0};"
     ],
     "description": "Declare a reactive signal state"
+  },
+  "VELYX Prop": {
+    "prefix": "vx-prop",
+    "body": [
+      "prop ${1:name}: ${2:string} = ${3:\"default\"};"
+    ],
+    "description": "Declare a component property"
+  },
+  "VELYX Computed": {
+    "prefix": "vx-computed",
+    "body": [
+      "computed ${1:double} = () => ${2:count} * 2;"
+    ],
+    "description": "Declare a derived computed state"
+  },
+  "VELYX Watch": {
+    "prefix": "vx-watch",
+    "body": [
+      "watch(${1:stateName}, (${2:val}) => {",
+      "  $3",
+      "});"
+    ],
+    "description": "Watch a state for changes"
+  },
+  "VELYX Transition Block": {
+    "prefix": "vx-transition",
+    "body": [
+      "<transition>",
+      "  ${1:fade} {",
+      "    0% { opacity: 0; }",
+      "    100% { opacity: 1; }",
+      "  }",
+      "</transition>"
+    ],
+    "description": "Add a VELYX transition block"
+  },
+  "VELYX Server Script": {
+    "prefix": "vx-server",
+    "body": [
+      "<script server>",
+      "  export async function ${1:actionName}(${2:data}: ${3:any}) {",
+      "    $4",
+      "  }",
+      "</script>"
+    ],
+    "description": "Add a VELYX server actions script block"
+  },
+  "VELYX Setup Block": {
+    "prefix": "vx-setup",
+    "body": [
+      "<setup>",
+      "  $1",
+      "</setup>"
+    ],
+    "description": "Add a VELYX setup block"
   }
 }
