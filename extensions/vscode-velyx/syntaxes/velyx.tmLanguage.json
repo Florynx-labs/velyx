@@ -4,7 +4,6 @@
   "scopeName": "source.velyx",
   "patterns": [
     { "include": "#sfc-blocks" },
-    { "include": "#html-tags" },
     { "include": "#mustache-expressions" }
   ],
   "repository": {
@@ -26,8 +25,17 @@
           "contentName": "text.html.velyx",
           "patterns": [
             { "include": "#mustache-expressions" },
-            { "include": "text.html.basic" },
-            { "include": "#html-tags" }
+            { "include": "#velyx-directives" },
+            { "include": "#html-heading-tags" },
+            { "include": "#html-block-tags" },
+            { "include": "#html-inline-tags" },
+            { "include": "#html-form-tags" },
+            { "include": "#html-list-tags" },
+            { "include": "#html-media-tags" },
+            { "include": "#html-table-tags" },
+            { "include": "#html-meta-tags" },
+            { "include": "#html-closing-tags" },
+            { "include": "#html-attributes" }
           ]
         },
         {
@@ -64,6 +72,25 @@
             "3": { "name": "punctuation.definition.tag.end.html" }
           },
           "contentName": "meta.setup.velyx",
+          "patterns": [
+            { "include": "#velyx-keywords" },
+            { "include": "source.ts" }
+          ]
+        },
+        {
+          "begin": "(<)(config)(>)",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.config.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "end": "(</)(config)(>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.sfc.config.velyx" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "contentName": "meta.config.velyx",
           "patterns": [
             { "include": "#velyx-keywords" },
             { "include": "source.ts" }
@@ -107,13 +134,14 @@
         }
       ]
     },
-    "html-tags": {
+
+    "html-heading-tags": {
       "patterns": [
         {
-          "begin": "(<)([a-zA-Z0-9:-]+)",
+          "begin": "(<)(h[1-6])(?=[\\s>])",
           "beginCaptures": {
             "1": { "name": "punctuation.definition.tag.begin.html" },
-            "2": { "name": "entity.name.tag.html" }
+            "2": { "name": "entity.name.tag.heading.html" }
           },
           "end": "(/?>)",
           "endCaptures": {
@@ -121,11 +149,233 @@
           },
           "patterns": [
             { "include": "#velyx-directives" },
-            { "include": "text.html.basic" }
+            { "include": "#html-attributes" }
           ]
         }
       ]
     },
+
+    "html-block-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(div|section|article|main|header|footer|nav|aside|figure|figcaption|details|summary|dialog|template|slot)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.block.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-inline-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(p|span|a|strong|em|b|i|u|s|del|ins|mark|small|big|sub|sup|abbr|cite|code|kbd|samp|var|q|blockquote|pre|address|bdi|bdo|wbr|time|data|output)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.inline.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-form-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(form|input|button|select|textarea|label|fieldset|legend|datalist|optgroup|option|output|progress|meter)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.form.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-list-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(ul|ol|li|dl|dt|dd|menu)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.list.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-media-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(img|video|audio|canvas|svg|picture|source|track|iframe|embed|object|portal)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.media.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-table-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(table|thead|tbody|tfoot|tr|th|td|caption|col|colgroup)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.table.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#velyx-directives" },
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-meta-tags": {
+      "patterns": [
+        {
+          "begin": "(<)(head|body|html|title|meta|link|script|style|base|noscript|br|hr|wbr)(?=[\\s>])",
+          "beginCaptures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.structure.html" }
+          },
+          "end": "(/?>)",
+          "endCaptures": {
+            "1": { "name": "punctuation.definition.tag.end.html" }
+          },
+          "patterns": [
+            { "include": "#html-attributes" }
+          ]
+        }
+      ]
+    },
+
+    "html-closing-tags": {
+      "patterns": [
+        {
+          "match": "(</)(h[1-6])(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.heading.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(div|section|article|main|header|footer|nav|aside|figure|figcaption|details|summary|dialog|slot)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.block.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(p|span|a|strong|em|b|i|u|s|del|ins|mark|small|sub|sup|abbr|cite|code|kbd|samp|var|q|blockquote|pre|address|time|data|output)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.inline.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(form|button|select|textarea|label|fieldset|legend|optgroup|option|progress|meter)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.form.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(ul|ol|li|dl|dt|dd|menu)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.list.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(video|audio|canvas|picture|iframe|embed|object)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.media.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        },
+        {
+          "match": "(</)(table|thead|tbody|tfoot|tr|th|td|caption|colgroup)(>)",
+          "captures": {
+            "1": { "name": "punctuation.definition.tag.begin.html" },
+            "2": { "name": "entity.name.tag.table.html" },
+            "3": { "name": "punctuation.definition.tag.end.html" }
+          }
+        }
+      ]
+    },
+
+    "html-attributes": {
+      "patterns": [
+        {
+          "match": "\\b(class|id|style|href|src|alt|type|name|value|placeholder|action|method|for|role|aria-[a-z-]+|data-[a-zA-Z0-9-]+|target|rel|title|width|height|disabled|readonly|required|checked|selected|multiple|autocomplete|autofocus|hidden|tabindex|lang|dir|draggable|contenteditable|spellcheck|translate)\\b",
+          "name": "entity.other.attribute-name.html"
+        },
+        {
+          "match": "\"([^\"]*)\"",
+          "captures": {
+            "0": { "name": "string.quoted.double.html" }
+          }
+        },
+        {
+          "match": "'([^']*)'",
+          "captures": {
+            "0": { "name": "string.quoted.single.html" }
+          }
+        }
+      ]
+    },
+
     "velyx-keywords": {
       "patterns": [
         {
@@ -150,7 +400,7 @@
         },
         {
           "name": "support.function.velyx",
-          "match": "\\b(provide|inject|batch|effect|component)\\b"
+          "match": "\\b(definePage|defineProps|defineComponent|provide|inject|batch|effect|component)\\b"
         },
         {
           "name": "support.type.velyx",
@@ -158,10 +408,11 @@
         }
       ]
     },
+
     "velyx-directives": {
       "patterns": [
         {
-          "match": "\\b(vx-(?:click|input|change|submit|model|if|for|show|transition|visible|idle|hover|media|interaction))((?:\\.(?:once|stop|prevent|capture|passive))*)\\b",
+          "match": "\\b(vx-(?:click|input|change|submit|model|if|for|show|transition|visible|idle|hover|media|interaction))((?:\\.(?:once|stop|prevent|capture|passive))*)(?=\\s|=|>)",
           "captures": {
             "1": { "name": "entity.other.attribute-name.directive.velyx" },
             "2": { "name": "entity.other.attribute-name.modifier.velyx" }
@@ -169,6 +420,7 @@
         }
       ]
     },
+
     "mustache-expressions": {
       "begin": "\\{\\{",
       "beginCaptures": {
@@ -212,6 +464,7 @@
         }
       ]
     },
+
     "transition-rules": {
       "patterns": [
         {

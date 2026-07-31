@@ -1,0 +1,96 @@
+/* VELYX Global Base Styles
+ * Imported in main.ts
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --vx-primary:   #6366f1;
+  --vx-primary-h: #818cf8;
+  --vx-bg:        #0a0c10;
+  --vx-surface:   #111827;
+  --vx-text:      #f1f5f9;
+  --vx-muted:     #94a3b8;
+  --vx-border:    #1e293b;
+  --vx-radius:    8px;
+  --vx-font:      'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--vx-bg);
+  color: var(--vx-text);
+  font-family: var(--vx-font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--vx-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+
+/* Page Common Utility Styles */
+.page, .home, .about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.home h1, .page h1, .about h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--vx-primary-h) 0%, var(--vx-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home p, .page p, .about p {
+  color: var(--vx-muted);
+  font-size: 1.1rem;
+  max-width: 480px;
+}
+
+.btn {
+  background: var(--vx-primary);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: var(--vx-radius);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}

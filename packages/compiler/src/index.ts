@@ -17,12 +17,34 @@ import type { TransitionInsight } from './insights.js';
 
 // ─── SFC Types ────────────────────────────────────────────────────────────────
 
-/** The raw blocks extracted from a `.vx` single-file component. */
+/**
+ * The raw blocks extracted from a `.vx` single-file component.
+ *
+ * Block precedence for client logic:
+ *   1. `setup`  — new preferred block (VELYX v0.5+)
+ *   2. `script` — legacy block (still accepted for backward compatibility)
+ */
 export interface ParsedVelyxSFC {
+  /** Inlined HTML template. */
   readonly template: string;
+  /** Legacy `<script>` block (backward compat). Prefer `setup`. */
   readonly script: string;
+  /** New `<setup>` block — primary client logic block (v0.5+). */
+  readonly setup: string;
+  /** `<config>` block metadata (definePage, defineProps…). */
+  readonly config: string;
+  /** `<script server>` block — server-only logic. */
+  readonly scriptServer: string;
   readonly style: string;
   readonly transition: string;
+}
+
+/** Parsed metadata from a `<config>` block. */
+export interface PageConfig {
+  readonly title?: string;
+  readonly layout?: string;
+  readonly description?: string;
+  readonly [key: string]: string | undefined;
 }
 
 /** A node produced by the HTML template parser. */
@@ -140,21 +162,59 @@ export function definePlugin(plugin: VelyxPlugin): VelyxPlugin {
 // ─── SFC Lexer / Parser ───────────────────────────────────────────────────────
 
 /**
- * Extracts the `<template>`, `<script>`, and `<style>` blocks from `.vx` source.
+ * Extracts all blocks from a `.vx` source file.
+ *
+ * Block support (v0.5+):
+ * - `<config>`        → page/component metadata
+ * - `<setup>`         → primary client logic (new convention)
+ * - `<script>`        → legacy client logic (backward compat)
+ * - `<script server>` → server-only functions
+ * - `<template>`      → HTML template
+ * - `<style>`         → scoped styles
+ * - `<transition>`    → WAAPI animation definitions
  *
  * Missing blocks result in empty strings, never `undefined`.
  */
 export function parseSFC(source: string): ParsedVelyxSFC {
-  const templateMatch = source.match(/<template>([\s\S]*?)<\/template>/i);
-  const scriptMatch   = source.match(/<script>([\s\S]*?)<\/script>/i);
-  const styleMatch    = source.match(/<style>([\s\S]*?)<\/style>/i);
-  const transitionMatch = source.match(/<transition>([\s\S]*?)<\/transition>/i);
+  const templateMatch     = source.match(/<template>([\s\S]*?)<\/template>/i);
+  // <script server> must be matched BEFORE generic <script> to avoid overlap
+  const scriptServerMatch = source.match(/<script\s+server>([\s\S]*?)<\/script>/i);
+  const scriptMatch       = source.match(/<script(?!\s+server)>([\s\S]*?)<\/script>/i);
+  const setupMatch        = source.match(/<setup>([\s\S]*?)<\/setup>/i);
+  const configMatch       = source.match(/<config>([\s\S]*?)<\/config>/i);
+  const styleMatch        = source.match(/<style>([\s\S]*?)<\/style>/i);
+  const transitionMatch   = source.match(/<transition>([\s\S]*?)<\/transition>/i);
+
   return {
-    template: templateMatch?.[1]?.trim() ?? '',
-    script:   scriptMatch?.[1]?.trim()   ?? '',
-    style:    styleMatch?.[1]?.trim()    ?? '',
-    transition: transitionMatch?.[1]?.trim() ?? ''
+    template:     templateMatch?.[1]?.trim()     ?? '',
+    setup:        setupMatch?.[1]?.trim()        ?? '',
+    script:       scriptMatch?.[1]?.trim()       ?? '',
+    scriptServer: scriptServerMatch?.[1]?.trim() ?? '',
+    config:       configMatch?.[1]?.trim()       ?? '',
+    style:        styleMatch?.[1]?.trim()        ?? '',
+    transition:   transitionMatch?.[1]?.trim()   ?? ''
   };
+}
+
+/**
+ * Parses a `<config>` block and extracts its key/value pairs from a
+ * `definePage({...})` or `defineProps({...})` call.
+ *
+ * @example
+ * // Source: definePage({ title: "Home", layout: "default" })
+ * // Result: { title: "Home", layout: "default" }
+ */
+export function parseConfigBlock(raw: string): PageConfig {
+  const config: Record<string, string> = {};
+  const objMatch = raw.match(/define(?:Page|Props|Component)\s*\(\s*\{([\s\S]*?)\}\s*\)/i);
+  if (!objMatch) return config;
+
+  const propRe = /([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:\s*(?:"([^"]*)"|'([^']*)'|([^,\n}]*))/g;
+  let m: RegExpExecArray | null;
+  while ((m = propRe.exec(objMatch[1] ?? '')) !== null) {
+    config[m[1]!] = (m[2] ?? m[3] ?? m[4] ?? '').trim();
+  }
+  return config;
 }
 
 export function parseTransitionBlock(raw: string): TransitionDefinition[] {
@@ -250,17 +310,25 @@ function parseHtmlNodes(html: string): TemplateNode[] {
 
 // ─── AST → IR Transformer ────────────────────────────────────────────────────
 
-/** @internal Converts a parsed AST into the IR tree, extracting state variables. */
+/**
+ * @internal Converts a parsed AST into the IR tree, extracting state variables.
+ *
+ * `setup` takes priority over `script` for client logic.
+ * Both are accepted to maintain backward compatibility.
+ */
 export function astToIR(
   astNodes: readonly TemplateNode[],
   script: string,
   style: string,
-  transitionBlock: string = ''
+  transitionBlock: string = '',
+  setup: string = ''
 ): IRRootNode {
+  // Use `setup` if present, fallback to legacy `script`
+  const clientScript = setup.length > 0 ? setup : script;
   const stateVars = new Set<string>();
   const stateRe = /state\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*=/g;
   let m: RegExpExecArray | null;
-  while ((m = stateRe.exec(script)) !== null) {
+  while ((m = stateRe.exec(clientScript)) !== null) {
     if (m[1] !== undefined) stateVars.add(m[1]);
   }
 
@@ -268,7 +336,7 @@ export function astToIR(
 
   return {
     type: 'IRRoot',
-    script,
+    script: clientScript,
     style,
     stateVars,
     children: astNodes.map(n => convertAstNode(n, stateVars)),
@@ -552,7 +620,8 @@ export interface CompileOptions {
 export function compile(source: string, _options: CompileOptions = {}): CompileResult {
   const sfc  = parseSFC(source);
   const ast  = parseHtmlNodes(sfc.template);
-  const ir   = astToIR(ast, sfc.script, sfc.style, sfc.transition);
+  // Pass `setup` to astToIR — it will use setup if present, fallback to script
+  const ir   = astToIR(ast, sfc.script, sfc.style, sfc.transition, sfc.setup);
   const { ir: optimizedIr, metadata } = runOptimizationPasses(ir);
   const code = generateCodeFromIR(optimizedIr);
 
@@ -578,8 +647,16 @@ export interface VelyxDiagnostic {
  */
 export function getDiagnostics(source: string): VelyxDiagnostic[] {
   const diags: VelyxDiagnostic[] = [];
+  const sfc = parseSFC(source);
+
   if (!source.includes('<template>')) {
     diags.push({ message: 'Missing <template> block in SFC', line: 1, severity: 'warning' });
+  }
+  if (sfc.script.length > 0 && sfc.setup.length > 0) {
+    diags.push({ message: 'Both <script> and <setup> are present. <setup> will be used; <script> is ignored.', line: 1, severity: 'warning' });
+  }
+  if (sfc.script.length > 0 && sfc.setup.length === 0) {
+    diags.push({ message: '<script> is deprecated in favour of <setup>. Please migrate to <setup>.', line: 1, severity: 'warning' });
   }
   return diags;
 }

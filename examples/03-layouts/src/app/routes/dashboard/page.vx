@@ -1,0 +1,56 @@
+<config>
+definePage({
+  title: "Dashboard",
+  layout: "dashboard"
+})
+</config>
+
+<setup>
+  state activeUsers = 1247;
+  state pageViews   = 48392;
+  state revenue     = 12840;
+</setup>
+
+<template>
+  <div class="overview">
+    <h1>Overview</h1>
+    <div class="stats">
+      <div class="stat-card">
+        <span class="label">Active Users</span>
+        <span class="value">{{ activeUsers }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="label">Page Views</span>
+        <span class="value">{{ pageViews }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="label">Revenue ($)</span>
+        <span class="value">{{ revenue }}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  .overview { padding: 1rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .label { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+  .value { font-size: 2rem; font-weight: 800; color: #818cf8; }
+</style>

@@ -1,0 +1,53 @@
+<config>
+definePage({
+  title: "Basic Page — VELYX Example"
+})
+</config>
+
+<setup>
+  state name = "World";
+
+  function greet() {
+    name = name === "World" ? "VELYX" : "World";
+  }
+</setup>
+
+<template>
+  <div class="example">
+    <h1>Hello, {{ name }}!</h1>
+    <p>This is the simplest VELYX page using <code>&lt;setup&gt;</code> and <code>&lt;template&gt;</code>.</p>
+    <button vx-click="greet" class="btn">Toggle greeting</button>
+  </div>
+</template>
+
+<style>
+  .example {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 2rem;
+    background: #0a0c10;
+    color: #f1f5f9;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1 { font-size: 2.5rem; font-weight: 800; color: #818cf8; }
+  p { color: #94a3b8; max-width: 500px; }
+  code { background: #1e293b; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+
+  .btn {
+    background: #6366f1;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+</style>

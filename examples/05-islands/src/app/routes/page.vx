@@ -1,0 +1,43 @@
+<config>
+definePage({
+  title: "Islands — VELYX Example"
+})
+</config>
+
+<setup>
+  // Page-level setup — static content, no reactivity needed
+</setup>
+
+<template>
+  <div class="page">
+    <h1>Interactive Islands</h1>
+    <p>
+      Only the <em>interactive</em> parts of a page hydrate in the browser.
+      Static sections are pure HTML with zero JS.
+    </p>
+
+    <section class="static-section">
+      <h2>📄 Static Content</h2>
+      <p>This section ships as pure HTML — no JavaScript attached.</p>
+    </section>
+
+    <!-- Island component: hydrated with signals -->
+    <Counter />
+  </div>
+</template>
+
+<style>
+  .page { max-width: 640px; margin: 4rem auto; padding: 2rem; font-family: system-ui, sans-serif; color: #f1f5f9; }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #818cf8; }
+  p { color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.7; }
+
+  .static-section {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .static-section h2 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+</style>

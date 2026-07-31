@@ -1,0 +1,28 @@
+<config>
+definePage({
+  title: "Blog Post — Routing Example"
+})
+</config>
+
+<setup>
+  // In real usage, slug comes from route params via @velyx/router:
+  // import { currentParams } from '@velyx/router';
+  // const slug = computed(() => currentParams.value.slug ?? 'unknown');
+  state slug = "hello-world"; // placeholder for demo
+</setup>
+
+<template>
+  <div class="post">
+    <a href="/blog">← All Posts</a>
+    <h1>Post: {{ slug }}</h1>
+    <p>Dynamic route: <code>/blog/[slug]</code> → URL parameter captured as <code>slug</code>.</p>
+  </div>
+</template>
+
+<style>
+  .post { max-width: 640px; margin: 4rem auto; padding: 2rem; font-family: system-ui, sans-serif; }
+  a { color: #6366f1; }
+  h1 { font-size: 1.75rem; margin: 1rem 0; color: #1e293b; }
+  p { color: #64748b; }
+  code { background: #f1f5f9; padding: 0.1em 0.3em; border-radius: 3px; }
+</style>

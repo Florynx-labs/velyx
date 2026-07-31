@@ -1,0 +1,102 @@
+<config>
+definePage({
+  title: "Dashboard — VELYX Example",
+  layout: "dashboard"
+})
+</config>
+
+<setup>
+  state activeTab = "overview";
+
+  state stats = {
+    users:    1247,
+    views:    48392,
+    revenue:  12840,
+    sessions: 3201
+  };
+
+  function switchTab(tab: string) {
+    activeTab = tab;
+  }
+</setup>
+
+<template>
+  <div class="dashboard">
+    <div class="header">
+      <h1>Dashboard</h1>
+      <p>Welcome back. Here's what's happening today.</p>
+    </div>
+
+    <div class="tab-nav">
+      <button vx-click="switchTab('overview')"   class="tab">Overview</button>
+      <button vx-click="switchTab('analytics')"  class="tab">Analytics</button>
+      <button vx-click="switchTab('users')"      class="tab">Users</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <span class="stat__label">Active Users</span>
+        <span class="stat__value">{{ stats.users }}</span>
+        <span class="stat__change up">+12%</span>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Page Views</span>
+        <span class="stat__value">{{ stats.views }}</span>
+        <span class="stat__change up">+7%</span>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Revenue ($)</span>
+        <span class="stat__value">{{ stats.revenue }}</span>
+        <span class="stat__change down">−2%</span>
+      </div>
+      <div class="stat">
+        <span class="stat__label">Sessions</span>
+        <span class="stat__value">{{ stats.sessions }}</span>
+        <span class="stat__change up">+24%</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  .dashboard { padding: 2rem; font-family: system-ui, sans-serif; color: #f1f5f9; }
+
+  .header { margin-bottom: 2rem; }
+  .header h1 { font-size: 1.75rem; font-weight: 700; color: #818cf8; }
+  .header p { color: #94a3b8; margin-top: 0.25rem; }
+
+  .tab-nav { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+  .tab {
+    background: #111827;
+    border: 1px solid #1e293b;
+    color: #94a3b8;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab:hover { background: #1e293b; color: #f1f5f9; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat {
+    background: #111827;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .stat__label { font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+  .stat__value { font-size: 2rem; font-weight: 800; color: #f1f5f9; }
+  .stat__change { font-size: 0.85rem; font-weight: 600; }
+  .stat__change.up   { color: #4ade80; }
+  .stat__change.down { color: #f87171; }
+</style>

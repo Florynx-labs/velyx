@@ -1,0 +1,30 @@
+<config>
+definePage({
+  title: "Home — Routing Example"
+})
+</config>
+
+<setup>
+  // Home page of the routing example
+</setup>
+
+<template>
+  <div class="page">
+    <h1>Filesystem Routing</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/blog/hello-world">Blog Post</a>
+    </nav>
+    <p>Each <code>page.vx</code> file maps to a URL automatically.</p>
+  </div>
+</template>
+
+<style>
+  .page { max-width: 640px; margin: 4rem auto; padding: 2rem; font-family: system-ui, sans-serif; }
+  h1 { font-size: 2rem; margin-bottom: 1rem; color: #6366f1; }
+  nav { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  nav a { color: #6366f1; }
+  p { color: #64748b; }
+  code { background: #f1f5f9; padding: 0.1em 0.3em; border-radius: 3px; }
+</style>

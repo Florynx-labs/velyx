@@ -1,0 +1,24 @@
+<config>
+definePage({
+  title: "Home",
+  layout: "default"
+})
+</config>
+
+<setup>
+  state count = 0;
+
+  function increment() {
+    count++;
+  }
+</setup>
+
+<template>
+  <div class="home">
+    <h1>Welcome to VELYX</h1>
+    <p>HTML-first, compiler-first, zero unnecessary JavaScript.</p>
+    <button vx-click="increment" class="btn">
+      Count: {{ count }}
+    </button>
+  </div>
+</template>

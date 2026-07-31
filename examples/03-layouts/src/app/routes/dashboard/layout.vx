@@ -1,0 +1,71 @@
+<setup>
+  // Dashboard layout — wraps all /dashboard/* routes
+</setup>
+
+<template>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h2>Dashboard</h2>
+      <nav>
+        <a href="/dashboard">Overview</a>
+        <a href="/dashboard/analytics">Analytics</a>
+        <a href="/dashboard/users">Users</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <slot />
+    </main>
+  </div>
+</template>
+
+<style>
+  .dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    font-family: system-ui, sans-serif;
+  }
+
+  .sidebar {
+    width: 240px;
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 2rem 1.5rem;
+    border-right: 1px solid #1e293b;
+  }
+
+  .sidebar h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #6366f1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sidebar nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .sidebar nav a:hover {
+    background: #1e293b;
+    color: #f1f5f9;
+  }
+
+  .content {
+    flex: 1;
+    padding: 2rem;
+    background: #0a0c10;
+    color: #f1f5f9;
+  }
+</style>

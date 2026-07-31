@@ -1,0 +1,48 @@
+<setup>
+  state count = 0;
+
+  function increment() { count++; }
+  function decrement() { count--; }
+</setup>
+
+<template>
+  <div class="counter-island">
+    <h3>⚡ Counter Island</h3>
+    <p>This component is fully reactive — signals only hydrate this element.</p>
+    <div class="controls">
+      <button vx-click="decrement" class="btn btn--secondary">−</button>
+      <span class="value">{{ count }}</span>
+      <button vx-click="increment" class="btn btn--primary">+</button>
+    </div>
+  </div>
+</template>
+
+<style>
+  .counter-island {
+    background: #111827;
+    border: 1px solid #6366f1;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #818cf8; }
+  p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem; }
+
+  .controls { display: flex; align-items: center; gap: 1rem; }
+
+  .btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 2px solid #6366f1;
+    background: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn--primary { background: #6366f1; color: #fff; border-color: #6366f1; }
+  .btn--secondary { color: #6366f1; }
+  .btn:hover { opacity: 0.85; }
+
+  .value { font-size: 2rem; font-weight: 800; min-width: 3rem; text-align: center; color: #f1f5f9; }
+</style>

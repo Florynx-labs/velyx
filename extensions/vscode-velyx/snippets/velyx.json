@@ -1,24 +1,117 @@
 {
-  "VELYX SFC Component": {
-    "prefix": "vx-component",
+  "VELYX SFC (minimal)": {
+    "prefix": "vel",
     "body": [
+      "<setup>",
+      "  $1",
+      "</setup>",
+      "",
       "<template>",
-      "  <div class=\"$1\">",
-      "    <h2>{{ title }}</h2>",
+      "  <div class=\"$2\">",
+      "    $3",
       "  </div>",
       "</template>",
       "",
-      "<script>",
-      "  state title = \"$2\";",
-      "</script>",
+      "<style>",
+      "  .$2 {",
+      "    $4",
+      "  }",
+      "</style>"
+    ],
+    "description": "VELYX minimal SFC with setup, template, and style"
+  },
+  "VELYX Page": {
+    "prefix": "velpage",
+    "body": [
+      "<config>",
+      "definePage({",
+      "  title: \"${1:Page Title}\",",
+      "  layout: \"${2:default}\"",
+      "})",
+      "</config>",
+      "",
+      "<setup>",
+      "  $3",
+      "</setup>",
+      "",
+      "<template>",
+      "  <div class=\"${4:page}\">",
+      "    <h1>${1:Page Title}</h1>",
+      "    $5",
+      "  </div>",
+      "</template>",
       "",
       "<style>",
-      "  .$1 {",
+      "  .${4:page} {",
+      "    padding: 2rem;",
+      "  }",
+      "</style>"
+    ],
+    "description": "VELYX page with config, setup, template, and style blocks"
+  },
+  "VELYX Component": {
+    "prefix": "velcomponent",
+    "body": [
+      "<setup>",
+      "  defineProps({",
+      "    ${1:label}: \"${2:default}\"",
+      "  })",
+      "",
+      "  $3",
+      "</setup>",
+      "",
+      "<template>",
+      "  <div class=\"${4:component}\">",
+      "    $5",
+      "  </div>",
+      "</template>",
+      "",
+      "<style>",
+      "  .${4:component} {",
+      "    $6",
+      "  }",
+      "</style>"
+    ],
+    "description": "VELYX component with defineProps, template, and style"
+  },
+  "VELYX Server Handler": {
+    "prefix": "velserver",
+    "body": [
+      "<script server>",
+      "  export async function ${1:handler}(${2:data}: ${3:any}) {",
+      "    $4",
+      "    return { success: true };",
+      "  }",
+      "</script>"
+    ],
+    "description": "VELYX server-side function block"
+  },
+  "VELYX SFC Component": {
+    "prefix": "vx-component",
+    "body": [
+      "<config>",
+      "definePage({",
+      "  title: \"${1:Title}\"",
+      "})",
+      "</config>",
+      "",
+      "<setup>",
+      "  state ${2:count} = ${3:0};",
+      "</setup>",
+      "",
+      "<template>",
+      "  <div class=\"${4:app}\">",
+      "    <h1>{{ ${2:count} }}</h1>",
+      "  </div>",
+      "</template>",
+      "",
+      "<style>",
+      "  .${4:app} {",
       "    padding: 1rem;",
       "  }",
       "</style>"
     ],
-    "description": "Create a new VELYX Single-File Component"
+    "description": "Create a full VELYX Single-File Component"
   },
   "VELYX Signal State": {
     "prefix": "vx-state",
@@ -55,12 +148,12 @@
     "body": [
       "<transition>",
       "  ${1:fade} {",
-      "    0% { opacity: 0; }",
-      "    100% { opacity: 1; }",
+      "    0% { opacity: 0; transform: translateY(4px); }",
+      "    100% { opacity: 1; transform: translateY(0); }",
       "  }",
       "</transition>"
     ],
-    "description": "Add a VELYX transition block"
+    "description": "Add a VELYX WAAPI transition block"
   },
   "VELYX Server Script": {
     "prefix": "vx-server",
@@ -81,5 +174,17 @@
       "</setup>"
     ],
     "description": "Add a VELYX setup block"
+  },
+  "VELYX Config Block": {
+    "prefix": "vx-config",
+    "body": [
+      "<config>",
+      "definePage({",
+      "  title: \"${1:Page Title}\",",
+      "  layout: \"${2:default}\"",
+      "})",
+      "</config>"
+    ],
+    "description": "Add a VELYX page config block"
   }
 }
