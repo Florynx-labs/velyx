@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/runtime",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Ultra-lightweight DOM runtime facade for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",

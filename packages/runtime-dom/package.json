@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/runtime-dom",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Browser DOM target driver for Velyx Framework with direct element updates and keyed list reconciliation",
   "type": "module",
   "main": "./dist/index.js",

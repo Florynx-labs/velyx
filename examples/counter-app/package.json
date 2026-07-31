@@ -8,13 +8,13 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@velyx/core": "workspace:*",
-    "@velyx/runtime": "workspace:*",
-    "@velyx/compiler": "workspace:*",
-    "@velyx/router": "workspace:*"
+    "@velyxteam/core": "workspace:*",
+    "@velyxteam/runtime": "workspace:*",
+    "@velyxteam/compiler": "workspace:*",
+    "@velyxteam/router": "workspace:*"
   },
   "devDependencies": {
-    "@velyx/adapter-vite": "workspace:*",
+    "@velyxteam/adapter-vite": "workspace:*",
     "vite": "^5.2.0"
   }
 }

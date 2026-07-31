@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/router",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Native fine-grained router for Velyx Framework with SPA and SSR support",
   "type": "module",
   "main": "./dist/index.js",

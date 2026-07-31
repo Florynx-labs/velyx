@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/runtime-core",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Environment-agnostic reactive core, signals graph, scheduler, and lifecycle for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",

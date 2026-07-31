@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/core",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Core reactive primitives and component lifecycle facade for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",

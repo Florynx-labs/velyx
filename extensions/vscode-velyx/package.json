@@ -2,7 +2,7 @@
   "name": "vscode-velyx",
   "displayName": "VELYX — .vx Language Support",
   "description": "Official VS Code extension for VELYX .vx Single-File Components. Syntax highlighting, file icons, snippets and hover information for the VELYX compiler-first reactive framework.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "publisher": "florynx-labs",
   "icon": "icon.png",
   "license": "MIT",

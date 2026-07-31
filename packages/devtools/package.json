@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/devtools",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Devtools architecture and inspector integration for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",

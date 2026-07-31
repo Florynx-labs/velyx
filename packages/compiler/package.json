@@ -1,6 +1,6 @@
 {
   "name": "@velyxteam/compiler",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Compiler engine for transforming .vx single-file components into optimized JS for Velyx",
   "type": "module",
   "main": "./dist/index.js",

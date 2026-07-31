@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@velyx/compiler": "workspace:*",
-    "@velyx/core": "workspace:*",
-    "@velyx/runtime-core": "workspace:*",
-    "@velyx/runtime-dom": "workspace:*"
+    "@velyxteam/compiler": "workspace:*",
+    "@velyxteam/core": "workspace:*",
+    "@velyxteam/runtime-core": "workspace:*",
+    "@velyxteam/runtime-dom": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.5",
