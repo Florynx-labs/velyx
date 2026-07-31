@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/compiler",
-  "version": "0.1.0",
+  "name": "@velyxteam/compiler",
+  "version": "0.5.0",
   "description": "Compiler engine for transforming .vx single-file components into optimized JS for Velyx",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,5 +16,6 @@
   },
   "keywords": ["velyx", "compiler", "parser", "sfc"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }

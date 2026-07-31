@@ -110,13 +110,13 @@ function createProject(name: string): void {
       preview: 'vite preview'
     },
     dependencies: {
-      '@velyx/core':    '^0.5.0',
-      '@velyx/runtime': '^0.5.0',
-      '@velyx/router':  '^0.5.0',
-      '@velyx/server':  '^0.5.0'
+      '@velyxteam/core':    '^0.5.0',
+      '@velyxteam/runtime': '^0.5.0',
+      '@velyxteam/router':  '^0.5.0',
+      '@velyxteam/server':  '^0.5.0'
     },
     devDependencies: {
-      '@velyx/adapter-vite': '^0.5.0',
+      '@velyxteam/adapter-vite': '^0.5.0',
       'vite': '^5.2.0'
     }
   };
@@ -408,8 +408,8 @@ function indexHtml(name: string): string {
 
 function mainTs(): string {
   return `import './styles/style.css';
-import { mount } from '@velyx/runtime';
-import { createRouter } from '@velyx/router';
+import { mount } from '@velyxteam/runtime';
+import { createRouter } from '@velyxteam/router';
 // Import your pages here, or use the filesystem router plugin
 import HomePage from './app/routes/page.vx';
 import AboutPage from './app/routes/about/page.vx';
@@ -567,7 +567,7 @@ definePage({
 
 function viteConfig(): string {
   return `import { defineConfig } from 'vite';
-import velyx from '@velyx/adapter-vite';
+import velyx from '@velyxteam/adapter-vite';
 
 export default defineConfig({
   plugins: [velyx()]

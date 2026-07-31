@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/runtime",
-  "version": "0.2.0",
+  "name": "@velyxteam/runtime",
+  "version": "0.5.0",
   "description": "Ultra-lightweight DOM runtime facade for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,13 +12,14 @@
     }
   },
   "dependencies": {
-    "@velyx/runtime-core": "workspace:*",
-    "@velyx/runtime-dom": "workspace:*"
+    "@velyxteam/runtime-core": "workspace:*",
+    "@velyxteam/runtime-dom": "workspace:*"
   },
   "scripts": {
     "build": "tsc"
   },
   "keywords": ["velyx", "runtime", "dom"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/runtime-core",
-  "version": "0.2.0",
+  "name": "@velyxteam/runtime-core",
+  "version": "0.5.0",
   "description": "Environment-agnostic reactive core, signals graph, scheduler, and lifecycle for Velyx Framework",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,5 +16,6 @@
   },
   "keywords": ["velyx", "signals", "scheduler", "runtime-core"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }

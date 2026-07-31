@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/router",
-  "version": "0.1.0",
+  "name": "@velyxteam/router",
+  "version": "0.5.0",
   "description": "Native fine-grained router for Velyx Framework with SPA and SSR support",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,13 +12,14 @@
     }
   },
   "dependencies": {
-    "@velyx/core": "workspace:*",
-    "@velyx/runtime": "workspace:*"
+    "@velyxteam/core": "workspace:*",
+    "@velyxteam/runtime": "workspace:*"
   },
   "scripts": {
     "build": "tsc"
   },
   "keywords": ["velyx", "router", "spa", "ssr"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }

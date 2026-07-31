@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/cli",
-  "version": "0.1.0",
+  "name": "@velyxteam/cli",
+  "version": "0.5.0",
   "description": "Command Line Tool for Velyx Framework by Florynx Labs",
   "type": "module",
   "bin": {
@@ -15,12 +15,13 @@
     }
   },
   "dependencies": {
-    "@velyx/compiler": "workspace:*"
+    "@velyxteam/compiler": "workspace:*"
   },
   "scripts": {
     "build": "tsc"
   },
   "keywords": ["velyx", "cli", "florynx-labs"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }

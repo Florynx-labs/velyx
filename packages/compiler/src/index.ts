@@ -534,8 +534,8 @@ export function generateCodeFromIR(ir: IRRootNode): string {
   }
 
   return `\
-import { signal, effect, computed, onMount, onDestroy } from '@velyx/core';
-import { createElement, bindEvent, bindModel, setAttr, registerTransition } from '@velyx/runtime';
+import { signal, effect, computed, onMount, onDestroy } from '@velyxteam/core';
+import { createElement, bindEvent, bindModel, setAttr, registerTransition } from '@velyxteam/runtime';
 
 ${ir.style ? `injectStyles(\`${escapedCss}\`);` : ''}
 ${transitionRegistrations}

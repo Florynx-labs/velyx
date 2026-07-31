@@ -1,6 +1,6 @@
 {
-  "name": "@velyx/runtime-dom",
-  "version": "0.2.0",
+  "name": "@velyxteam/runtime-dom",
+  "version": "0.5.0",
   "description": "Browser DOM target driver for Velyx Framework with direct element updates and keyed list reconciliation",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,12 +12,13 @@
     }
   },
   "dependencies": {
-    "@velyx/runtime-core": "workspace:*"
+    "@velyxteam/runtime-core": "workspace:*"
   },
   "scripts": {
     "build": "tsc"
   },
   "keywords": ["velyx", "runtime-dom", "dom", "reconciliation"],
   "author": "Florynx Labs",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": { "access": "public" }
 }
